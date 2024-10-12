@@ -3,6 +3,7 @@ import { stdout, stdin } from 'node:process';
 import { EOL, homedir } from 'node:os';
 import readline from 'node:readline/promises';
 import { showDirectory } from './helpers/showDirectory.js';
+import { commandManager } from './commandManager.js';
 
 const greetings = (username) => {
   stdout.write(`Welcome to the File Manager, ${username}!${EOL}`);
@@ -40,7 +41,7 @@ const initCLI = () => {
     if (input === '.exit') {
       farewell(username);
     } else {
-      // TODO: implement command manager
+      await commandManager(command);
     }
   });
 
