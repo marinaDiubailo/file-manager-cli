@@ -1,0 +1,18 @@
+{
+  "name": "file-manager-cli",
+  "version": "1.0.0",
+  "description": "This repository is the part of nodejs-assignments https://github.com/AlreadyBored/nodejs-assignments",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marinaDiubailo/file-manager.git"
+  },
+  "author": "marinaDiubailo",
+  "license": "ISC"
+}
