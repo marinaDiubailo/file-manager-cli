@@ -1,7 +1,7 @@
 import { pipeline } from 'node:stream/promises';
 import { access } from 'node:fs/promises';
 import { createReadStream, createWriteStream } from 'node:fs';
-import { createGunzip } from 'node:zlib';
+import { createBrotliDecompress } from 'node:zlib';
 import { resolve } from 'node:path';
 import {
   showInvalidInputError,
@@ -17,7 +17,7 @@ export const decompress = async (sourceFilePath, decompressedFilePath) => {
 
     await pipeline(
       createReadStream(resolvedSourcePath),
-      createGunzip(),
+      createBrotliDecompress(),
       createWriteStream(resolve(decompressedFilePath)),
     );
 

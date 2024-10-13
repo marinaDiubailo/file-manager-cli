@@ -1,7 +1,7 @@
 import { pipeline } from 'node:stream/promises';
 import { access } from 'node:fs/promises';
 import { createReadStream, createWriteStream } from 'node:fs';
-import { createGzip } from 'node:zlib';
+import { createBrotliCompress } from 'node:zlib';
 import { resolve } from 'node:path';
 import {
   showInvalidInputError,
@@ -17,7 +17,7 @@ export const compress = async (sourceFilePath, compressedFilePath) => {
 
     await pipeline(
       createReadStream(resolvedSourcePath),
-      createGzip(),
+      createBrotliCompress(),
       createWriteStream(resolve(compressedFilePath)),
     );
 
