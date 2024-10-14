@@ -10,6 +10,11 @@ import {
 } from '../../helpers/index.js';
 
 export const compress = async (sourceFilePath, compressedFilePath) => {
+  if (!sourceFilePath || !compressedFilePath) {
+    showInvalidInputError();
+    return;
+  }
+
   try {
     const resolvedSourcePath = resolve(sourceFilePath);
 
@@ -23,10 +28,6 @@ export const compress = async (sourceFilePath, compressedFilePath) => {
 
     showDirectory();
   } catch (err) {
-    if (err.code === 'ENOENT') {
-      showInvalidInputError();
-    } else {
-      showOperationError();
-    }
+    showOperationError();
   }
 };

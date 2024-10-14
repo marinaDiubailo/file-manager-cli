@@ -10,6 +10,11 @@ import {
 } from '../../helpers/index.js';
 
 export const decompress = async (sourceFilePath, decompressedFilePath) => {
+  if (!sourceFilePath || !decompressedFilePath) {
+    showInvalidInputError();
+    return;
+  }
+
   try {
     const resolvedSourcePath = resolve(sourceFilePath);
 
@@ -23,10 +28,6 @@ export const decompress = async (sourceFilePath, decompressedFilePath) => {
 
     showDirectory();
   } catch (err) {
-    if (err.code === 'ENOENT') {
-      showInvalidInputError();
-    } else {
-      showOperationError();
-    }
+    showOperationError();
   }
 };

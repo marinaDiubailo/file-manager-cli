@@ -6,12 +6,17 @@ import { stdout } from 'node:process';
 import { EOL } from 'node:os';
 const { createHash } = await import('node:crypto');
 import {
-  showOperationError,
   showInvalidInputError,
+  showOperationError,
   showDirectory,
 } from '../../helpers/index.js';
 
 export const calculateHash = async (pathToFile) => {
+  if (!pathToFile) {
+    showInvalidInputError();
+    return;
+  }
+
   const resolvedPath = resolve(pathToFile);
 
   try {
@@ -27,10 +32,6 @@ export const calculateHash = async (pathToFile) => {
     stdout.write(result + EOL);
     showDirectory();
   } catch (err) {
-    if (err.code === 'ENOENT') {
-      showInvalidInputError();
-    } else {
-      showOperationError();
-    }
+    showOperationError();
   }
 };
