@@ -36,7 +36,7 @@ const initCLI = () => {
   rl.prompt();
 
   rl.on('line', async (input) => {
-    const command = input.trim().split(' ');
+    const command = input.trim().split(/\s+/);
 
     if (input === '.exit') {
       farewell(username);
