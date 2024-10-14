@@ -1,10 +1,17 @@
 import { createReadStream, createWriteStream } from 'node:fs';
 import { access } from 'node:fs/promises';
 import { resolve, basename } from 'node:path';
-
-import { showOperationError, showDirectory } from '../../helpers/index.js';
+import {
+  showInvalidInputError,
+  showOperationError,
+  showDirectory,
+} from '../../helpers/index.js';
 
 export const copyFile = async (sourcePath, destDirectory) => {
+  if (!sourcePath || !destDirectory) {
+    showInvalidInputError();
+    return;
+  }
   const fileName = basename(sourcePath);
   const destinationPath = resolve(destDirectory, fileName);
 

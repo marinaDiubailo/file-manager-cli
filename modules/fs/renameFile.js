@@ -1,6 +1,10 @@
 import { access, rename } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
-import { showOperationError, showDirectory } from '../../helpers/index.js';
+import {
+  showInvalidInputError,
+  showOperationError,
+  showDirectory,
+} from '../../helpers/index.js';
 
 /**
  * If the new file name is the same as the current file name,
@@ -12,6 +16,11 @@ import { showOperationError, showDirectory } from '../../helpers/index.js';
  */
 
 export const renameFile = async (pathToFile, newFileName) => {
+  if (!pathToFile || !newFileName) {
+    showInvalidInputError();
+    return;
+  }
+
   try {
     const resolvedOldPath = resolve(pathToFile);
     const resolvedNewPath = resolve(dirname(pathToFile), newFileName);

@@ -1,6 +1,9 @@
 import { access, rm } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
-import { showOperationError } from '../../helpers/showOperationError.js';
+import {
+  showInvalidInputError,
+  showOperationError,
+} from '../../helpers/index.js';
 import { copyFile } from './copyFile.js';
 
 /**
@@ -10,6 +13,11 @@ import { copyFile } from './copyFile.js';
  */
 
 export const moveFile = async (sourcePath, destDirectory) => {
+  if (!sourcePath || !destDirectory) {
+    showInvalidInputError();
+    return;
+  }
+
   try {
     const resolvedSourcePath = resolve(sourcePath);
     const resolvedDestDirectory = resolve(destDirectory);
