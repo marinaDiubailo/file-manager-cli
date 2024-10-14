@@ -1,10 +1,15 @@
 import { access, rename } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
-import {
-  showInvalidInputError,
-  showOperationError,
-  showDirectory,
-} from '../../helpers/index.js';
+import { showOperationError, showDirectory } from '../../helpers/index.js';
+
+/**
+ * If the new file name is the same as the current file name,
+ * no error will be raised.
+ *
+ * If the new file name already exists in the current directory,
+ * an error "Operation failed" will be returned,
+ * to prevent overwriting existing files.
+ */
 
 export const renameFile = async (pathToFile, newFileName) => {
   try {
@@ -20,17 +25,13 @@ export const renameFile = async (pathToFile, newFileName) => {
 
     try {
       await access(resolvedNewPath);
-      showInvalidInputError();
+      showOperationError();
       return;
     } catch {}
 
     await rename(resolvedOldPath, resolvedNewPath);
     showDirectory();
   } catch (err) {
-    if (err.code === 'ENOENT') {
-      showInvalidInputError();
-    } else {
-      showOperationError();
-    }
+    showOperationError();
   }
 };

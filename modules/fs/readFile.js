@@ -3,11 +3,7 @@ import { access } from 'node:fs/promises';
 import { stdout } from 'node:process';
 import { resolve } from 'node:path';
 import { EOL } from 'node:os';
-import {
-  showInvalidInputError,
-  showOperationError,
-  showDirectory,
-} from '../../helpers/index.js';
+import { showOperationError, showDirectory } from '../../helpers/index.js';
 
 export const readFile = async (path) => {
   try {
@@ -27,10 +23,6 @@ export const readFile = async (path) => {
       showOperationError();
     });
   } catch (err) {
-    if (err.code === 'ENOENT') {
-      showInvalidInputError();
-    } else {
-      showOperationError();
-    }
+    showOperationError();
   }
 };

@@ -18,8 +18,8 @@ export const fs = {
   cp: (sourcePath, destPath) => {
     copyFile(sourcePath, destPath);
   },
-  mv: (sourcePath, destPath) => {
-    moveFile(sourcePath, destPath);
+  mv: (sourcePath, destDirectory) => {
+    moveFile(sourcePath, destDirectory);
   },
   rm: (filePath) => {
     deleteFile(filePath);

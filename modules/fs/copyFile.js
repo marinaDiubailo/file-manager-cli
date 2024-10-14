@@ -2,11 +2,7 @@ import { createReadStream, createWriteStream } from 'node:fs';
 import { access } from 'node:fs/promises';
 import { resolve, basename } from 'node:path';
 
-import {
-  showInvalidInputError,
-  showOperationError,
-  showDirectory,
-} from '../../helpers/index.js';
+import { showOperationError, showDirectory } from '../../helpers/index.js';
 
 export const copyFile = async (sourcePath, destDirectory) => {
   const fileName = basename(sourcePath);
@@ -32,10 +28,6 @@ export const copyFile = async (sourcePath, destDirectory) => {
       showDirectory();
     });
   } catch (err) {
-    if (err.code === 'ENOENT') {
-      showInvalidInputError();
-    } else {
-      showOperationError();
-    }
+    showOperationError();
   }
 };
